@@ -1,6 +1,6 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { Puzzle1, Puzzle2 } from './puzzle1/puzzle1.jsx'
+import { Puzzle1, Puzzle2 } from './day1/puzzle1.jsx'
 import './App.css'
 
 function App() {

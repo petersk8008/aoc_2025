@@ -74,26 +74,37 @@ export function Puzzle2() {
       const steps = parseInt(line.slice(1));
       
       if (direction === 'L') {
-        // Count how many times we pass through 0 going left
-        const newPosition = position - steps;
-        // Count boundaries: every time we cross a multiple of 100
-        const startBoundary = Math.floor(position / 100);
-        const endBoundary = Math.floor(newPosition / 100);
-        const crossings = startBoundary - endBoundary;
-        count += crossings;
-        console.log(`Moving L ${steps} from ${position} to ${newPosition}, crossings: ${crossings}, total count: ${count}`);
-        position = ((newPosition % 100) + 100) % 100;
+        // Moving left (decreasing position)
+        // Count how many times we pass through or land on 0
+        // We cross 0 for every complete loop of 100 positions
+        const fullLoops = Math.floor(steps / 100);
+        count += fullLoops;
+        
+        // Check if we cross 0 in the remaining movement
+        const remainingSteps = steps % 100;
+        if (remainingSteps > position) {
+          count += 1;
+        }
+        
+        // Update position
+        position = ((position - steps) % 100 + 100) % 100;
+        console.log(`Moving L ${steps}, new position: ${position}, total count: ${count}`);
       } else if (direction === 'R') {
-        // Count how many times we pass through 0 going right
-        const newPosition = position + steps;
-        // Count boundaries: every time we cross a multiple of 100
-        const startBoundary = Math.floor(position / 100);
-        const endBoundary = Math.floor(newPosition / 100);
-        const crossings = endBoundary - startBoundary;
-        count += crossings;
-        console.log(`Moving R ${steps} from ${position} to ${newPosition}, crossings: ${crossings}, total count: ${count}`);
-
-        position = newPosition % 100;
+        // Moving right (increasing position)
+        // Count how many times we pass through or land on 0
+        // We cross 0 for every complete loop of 100 positions
+        const fullLoops = Math.floor(steps / 100);
+        count += fullLoops;
+        
+        // Check if we cross 0 in the remaining movement
+        const remainingSteps = steps % 100;
+        if (position + remainingSteps >= 100) {
+          count += 1;
+        }
+        
+        // Update position
+        position = (position + steps) % 100;
+        console.log(`Moving R ${steps}, new position: ${position}, total count: ${count}`);
       }
     }
 
