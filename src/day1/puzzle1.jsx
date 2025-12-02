@@ -7,18 +7,16 @@ export function Puzzle1() {
   useEffect(() => {
     fetch(input)
       .then((response) => {
-        console.log(response);
         return response.text();
       })
       .then((text) => {
-        console.log(text);
         setText(text);
       });
   }, []);
 
   function analyzeInput() {
     // split input to isolate each line
-    const lines = text.trim().split('\n');
+    const lines = text.trim().split('\r\n');
     let position = 50;
     let count = 0;
     
@@ -37,7 +35,7 @@ export function Puzzle1() {
         count++;
       }
     }
-    console.log(count);
+
     return count;
   };
 
@@ -55,20 +53,18 @@ export function Puzzle2() {
   useEffect(() => {
     fetch(input)
       .then((response) => {
-        console.log(response);
         return response.text();
       })
       .then((text) => {
-        console.log(text);
         setText(text);
       });
   }, []);
 
-  function analyzeInput() {
-    const lines = text.trim().split('\n');
+  function analyzeInput2() {
+    const lines = text.trim().split('\r\n');
     let position = 50;
     let count = 0;
-    
+    console.log('lines to process:', lines);
     for (const line of lines) {
       const direction = line[0];
       const steps = parseInt(line.slice(1));
@@ -82,13 +78,14 @@ export function Puzzle2() {
         
         // Check if we cross 0 in the remaining movement
         const remainingSteps = steps % 100;
-        if (remainingSteps > position) {
+        // We cross 0 if remaining steps >= current position, UNLESS we're already at 0
+        // (at 0 moving left means moving away from 0, not crossing it)
+        if (remainingSteps >= position && position !== 0) {
           count += 1;
         }
         
         // Update position
         position = ((position - steps) % 100 + 100) % 100;
-        console.log(`Moving L ${steps}, new position: ${position}, total count: ${count}`);
       } else if (direction === 'R') {
         // Moving right (increasing position)
         // Count how many times we pass through or land on 0
@@ -104,17 +101,15 @@ export function Puzzle2() {
         
         // Update position
         position = (position + steps) % 100;
-        console.log(`Moving R ${steps}, new position: ${position}, total count: ${count}`);
       }
     }
-
     return count;
   };
 
   return (
     <div>
       <h2>Puzzle 2 Result</h2>
-      <p>The number of times 0 was passed is: {analyzeInput()}</p>
+      <p>The number of times 0 was passed is: {analyzeInput2()}</p>
     </div>
   );
 }
