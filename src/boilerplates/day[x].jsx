@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import input from '../assets/puzzle1input.txt'
+import input from '../assets/day3input.txt'
 
 export function Puzzle3() {
   const [ text, setText ] = useState('');
@@ -13,6 +13,12 @@ export function Puzzle3() {
         setText(text);
       });
   }, []);
+
+  useEffect(() => {
+    if (text) {
+      analyzeInput();
+    }
+  }, [text]);
 
   function analyzeInput() {
   };

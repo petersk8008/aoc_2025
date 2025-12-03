@@ -3,14 +3,15 @@ import viteLogo from '/vite.svg'
 import { Puzzle1, Puzzle2 } from './day1/puzzle1.jsx'
 import './App.css'
 import { Puzzle3, Puzzle4 } from './day2/day2.jsx'
+import { Puzzle5, Puzzle6 } from './day3/day3.jsx'
 
 function App() {
   return (
     <>
       <h1>AoC 2025</h1>
-      <div className="card">
+      {/* <div className="card">
         <Puzzle1></Puzzle1>
-      </div>
+      </div> */}
       {/* <div className="card">
         <Puzzle2></Puzzle2>
       </div>
@@ -20,6 +21,12 @@ function App() {
       <div className="card">
         <Puzzle4></Puzzle4>
       </div> */}
+      {/* <div className="card">
+        <Puzzle5></Puzzle5>
+      </div> */}
+      <div className="card">
+        <Puzzle6></Puzzle6>
+      </div>
     </>
   )
 }
